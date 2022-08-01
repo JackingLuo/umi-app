@@ -1,4 +1,5 @@
 import { useLocation } from 'umi';
+import HomeContextProvider from '../context/pageData';
 import Logged from './logged';
 import Login from './login';
 // import styles from './index.less';
@@ -6,5 +7,9 @@ import Login from './login';
 export default function Layout() {
     const location = useLocation();
     const isLogin = location.pathname === '/login';
-    return isLogin ? <Login/> : <Logged/>;
+    return (
+        <HomeContextProvider>
+            {isLogin ? <Login/> : <Logged/>}
+        </HomeContextProvider>
+    );
 }

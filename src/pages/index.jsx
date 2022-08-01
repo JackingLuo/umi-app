@@ -1,8 +1,9 @@
-import yayJpg from '../assets/yay.jpg';
 import { useLocation } from 'umi';
 import { useEffect } from 'react';
 import { TestComponent } from '@Components';
 import { testGet } from '@Api';
+import yayJpg from '../assets/yay.jpg';
+
 
 export default function HomePage() {
     // const match = useMatch('');
