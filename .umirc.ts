@@ -3,6 +3,7 @@ import routes from './config/routes';
 
 export default {
     npmClient: 'yarn',
+    ...webpackConfig,
     routes,
-    ...webpackConfig
+    plugins:[]
 };
