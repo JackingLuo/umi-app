@@ -41,9 +41,9 @@
        - name: copy dist with scp
          uses: appleboy/scp-action@v0.0.1
          with:
-           host: ${{ secrets._HOST }}
-           username: ${{ secrets._USERNAME }}
-           password: ${{ secrets._PASSWORD }}
+           host: ${{ secrets.HOST_TEST }}
+           username: ${{ secrets.USER_NAME }}
+           password: ${{ secrets.PASS_WORD }}
            port: 22
            source: "dist/"
            target: "/usr/local/nginx/web_demo"
