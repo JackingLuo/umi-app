@@ -4,12 +4,13 @@
   "scripts": {
     "dev": "umi dev",
     "build": "umi build",
-    "test":"umi preview",
+    "test": "umi preview",
     "postinstall": "umi setup",
     "setup": "umi setup",
     "start": "npm run dev"
   },
   "dependencies": {
+    "antd": "^4.22.3",
     "axios": "^0.27.2",
     "umi": "^4.0.8"
   },

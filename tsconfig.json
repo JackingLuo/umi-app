@@ -1,3 +1,18 @@
 {
-  "extends": "./src/.umi/tsconfig.json"
+  "extends": "./src/.umi/tsconfig.json",
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "jsx": "react",
+    "target": "ES6",
+    "module": "es6",
+    "paths": {
+      "@/*": ["./src/*"],
+      "Components/*": ["./src/components/*"],
+      "Api/*": ["./src/services/api.js"],
+      "Utils/*": ["./src/utils/*"],
+      "Context/*": ["./src/context/*"]
+    }
+  },
 }

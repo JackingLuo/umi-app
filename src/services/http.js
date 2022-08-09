@@ -21,7 +21,7 @@ const httpCreater = (config) => {
         // },
         ...(config || {}),
     };
-    
+
     //注册请求实例
     const instance = axios.create(createConfig);
 
@@ -31,6 +31,7 @@ const httpCreater = (config) => {
         return config;
     }, function(error) {
         // 对请求错误做些什么
+        console.log(error);
         return Promise.reject(error);
     });
 
@@ -45,9 +46,9 @@ const httpCreater = (config) => {
 
     const request = async (config) => {
         let requestBack;
-        if (config?.onBeforeRequest){
+        if (config?.onBeforeRequest) {
             const res = await config.onBeforeRequest();
-            if (res === false){ return; }
+            if (res === false) { return; }
         }
         requestBack = await instance.request(config);
         // if (config?.onAfterRequest){
@@ -55,26 +56,26 @@ const httpCreater = (config) => {
         // }
         return requestBack;
     };
-    
+
     return {
         get instance() {
             return instance;
         },
-        get(url, params, opts = {}){
+        get(url, params, opts = {}) {
             const config = {
                 ...opts,
-                method : 'get',
-                url : url,
-                params : params
+                method: 'get',
+                url: url,
+                params: params
             };
             return request(config);
         },
         post(url, params, opts = {}) {
             const config = {
                 ...opts,
-                method : 'post',
-                url : url,
-                data : params
+                method: 'post',
+                url: url,
+                data: params
             };
             return request(config);
         },
