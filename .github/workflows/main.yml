@@ -41,7 +41,7 @@
        - name: copy dist with scp
          uses: appleboy/scp-action@v0.0.1
          with:
-           host: ${{ secrets.HOST_TEST }}
+           host: 114.132.158.242
            username: ${{ secrets.USER_NAME }}
            password: ${{ secrets.PASS_WORD }}
            port: 22
