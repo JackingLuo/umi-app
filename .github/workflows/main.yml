@@ -49,6 +49,6 @@
            target: "/usr/local/nginx/web_demo"
 
        - name: restart nginx
-         run: systemctl restart nginx
+         run: /usr/local/nginx/sbin/nginx -s reload
        
        
