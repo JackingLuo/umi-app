@@ -39,7 +39,7 @@
        - name: build-app;
          run: npm run build
        - name: copy dist with scp
-         uses: appleboy/scp-action@release
+         uses: appleboy/scp-action@master
          with:
            host: ${{ secrets.HOST_TEST }}
            username: ${{ secrets.USER_NAME }}
