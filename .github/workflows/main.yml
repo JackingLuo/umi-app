@@ -47,5 +47,8 @@
            port: 22
            source: "dist/"
            target: "/usr/local/nginx/web_demo"
+
+       - name: restart nginx
+         run: systemctl restart nginx
        
        
