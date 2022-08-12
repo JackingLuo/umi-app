@@ -10,8 +10,9 @@ const Login = ({
 
     return (
         <div className="yqn-step-body">
-            login
-            <ProgressStep/>
+            login~
+            piu~
+            <ProgressStep />
         </div>
     );
 
