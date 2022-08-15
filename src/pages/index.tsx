@@ -1,23 +1,26 @@
 import { useLocation } from 'umi';
-import { useEffect } from 'react';
-import { TestComponent } from 'Components';
-import { testGet } from 'Api';
+import { FC, useEffect } from 'react';
+import { TestComponent } from '@/components';
+import { testGet } from '@/api';
 import yayJpg from '../assets/yay.jpg';
 
-
-export default function HomePage() {
+interface HomePageProps{
+    name:string
+}
+const HomePage:FC<HomePageProps> = ({ name }) => {
+    console.log('%c name 👉 ', 'font-size:16px;background-color:#fff;color:#000;', name);
     // const match = useMatch('');
     const location = useLocation();
     console.log('%c location 👉 ', 'font-size:16px;background-color:#fff;color:#000;', location);
-
-    useEffect(() => {
-        init();
-    }, []);
 
     const init = async ()=>{
         const res = await testGet({ id:123 });
         console.log('%c res 👉 ', 'font-size:16px;background-color:#fff;color:#000;', res);
     };
+
+    useEffect(() => {
+        init();
+    }, []);
 
     return (
         <div>
@@ -26,9 +29,9 @@ export default function HomePage() {
             <p>
                 <img src={yayJpg} width="388" />
             </p>
-            <p>
-        To get started, edit <code>pages/index.tsx</code> and save to reload.
-            </p>
+            <p>蹦,瞎卡拉卡</p>
         </div>
     );
-}
+};
+
+export default HomePage;

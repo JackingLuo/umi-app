@@ -5,5 +5,6 @@ export default {
     npmClient: 'yarn',
     ...webpackConfig,
     routes,
-    plugins:[]
+    plugins: [],
+    mfsu: false
 };
