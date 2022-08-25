@@ -117,7 +117,7 @@ module.exports = {
         quotes: [1, 'single'],
         'no-extra-semi': 1,
         semi: [1, 'always'],
-    
+
         // strict: 2,
         'no-console': 1,
         'no-case-declarations': 0,

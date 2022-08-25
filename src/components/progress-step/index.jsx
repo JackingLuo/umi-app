@@ -4,30 +4,29 @@ import React, { useState } from 'react';
 import ProgressSteps from './progress-steps';
 import './index.less';
 
-const ProgressMain = ({}) => {
+const ProgressMain = ({ }) => {
     const mock = [
         {
-            status:'finish',
-            title:'title1',
-            describe:'describe111'
+            status: 'finish',
+            title: 'title1',
+            describe: 'describe111'
         },
         {
-            status:'process',
-            title:'title12',
-            describe:'describe111'
+            status: 'process',
+            title: 'title12',
+            describe: 'describe111'
         }, {
-            status:'wait',
-            title:'title13333',
-            describe:'describe111'
+            status: 'wait',
+            title: 'title13333',
+            describe: 'describe111'
         }
     ];
 
     const [dataSource] = useState(mock);
-    console.log('%c dataSource 👉 ', 'font-size:16px;background-color:#fff;color:#000;', dataSource);
     return (
         <div className="progress-step-body">
             {
-                dataSource.map((item, index)=>(
+                dataSource.map((item, index) => (
                     <ProgressSteps
                         key={index}
                         {...item}
@@ -36,7 +35,7 @@ const ProgressMain = ({}) => {
             }
         </div>
     );
-   
+
 };
 
 export default ProgressMain;

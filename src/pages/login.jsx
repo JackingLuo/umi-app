@@ -1,21 +1,25 @@
-import React from 'react';
-// import { Steps, Menu, Dropdown,Popover, Icon } from 'antd';
-// import _ from 'lodash';
-import { ProgressStep } from '@/components';
+import React, { useState } from 'react';
+import { Button } from 'antd';
+import imga from '../assets/111.jpeg';
+import imgb from '../assets/222.jpeg';
 
-
-const Login = ({
+const Test = ({
 
 }) => {
+    const [isPre, setPre] = useState(true);
+
+    const handleSwitch = () => {
+        setPre(!isPre);
+    };
 
     return (
-        <div className="yqn-step-body">
-            login~
-            piu~
-            <ProgressStep />
+        <div className="img-box">
+            <img src={imga} className={isPre ? '' : 'img-next'} />
+            <img src={imgb} className={isPre ? 'img-next' : ''} />
+            <Button onClick={handleSwitch}>切换</Button>
         </div>
     );
 
 };
 
-export default Login;
+export default Test;
