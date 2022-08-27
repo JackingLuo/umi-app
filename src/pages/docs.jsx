@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input } from 'antd';
 import { usePageForm } from '@/context/form';
 import Child from './child';
 // import _ from 'lodash';
@@ -20,10 +20,6 @@ const Docs = () => {
                 <Input />
             </Form.Item>
             <Child />
-            <Button onClick={() => {
-                form.setFieldsValue({ childInput: 123 });
-            }}>setChild
-            </Button>
         </>
 
     );

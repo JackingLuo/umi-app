@@ -1,5 +1,5 @@
-import { useLocation } from 'umi';
-import { FC, useEffect, useState } from 'react';
+// import { useLocation } from 'umi';
+import { FC, useEffect } from 'react';
 import { Button, Form, Input } from 'antd';
 import { usePageForm } from '@/context/form';
 import { testGet } from '@/api';
