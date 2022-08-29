@@ -1,16 +1,18 @@
-import React, { forwardRef, useImperativeHandle, useState, useMemo, useRef } from 'react';
-// import PropTypes from 'prop-types';
+import React, { useState, useMemo, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { Popover, Button, message } from 'antd';
-// import _ from 'lodash';
 import { SearchCheckbox } from '@/components';
 
-const Operation = forwardRef(({ columns, onColumnsChange }, ref) => {
+const Operation = ({ columns, onColumnsChange, isEditColumns, extraNode }) => {
 
     const [visible, setVisible] = useState(false);
-    const [checkedList, setCheckedList] = useState(columns.filter(item => item.show).map(i => i.dataIndex));//选中的columns的dataIndex集合
+    const [checkedList, setCheckedList] = useState(columns.filter(item => item.show).map(i => i.dataIndex));//选中的选项(未保存)
     const savedCheckedList = useRef(columns.filter(item => item.show).map(i => i.dataIndex)); //已保存的选项
 
-    //处理多选框修改
+    //隐藏卡片
+    const hidePopover = () => setVisible(false);
+
+    //多选框修改回调
     const handleChange = (values) => {
         setCheckedList(values);
     };
@@ -20,9 +22,9 @@ const Operation = forwardRef(({ columns, onColumnsChange }, ref) => {
         savedCheckedList.current = deafaultChecked;
         setCheckedList(deafaultChecked);
         onColumnsChange?.(deafaultChecked);
-        setVisible(false);
+        hidePopover();
     };
-    //保存修改配置
+    //保存选中的选项
     const handleSave = () => {
         if (!checkedList.length) {
             message.error('列表至少包含一列');
@@ -31,14 +33,15 @@ const Operation = forwardRef(({ columns, onColumnsChange }, ref) => {
         savedCheckedList.current = checkedList;
         //重新排序columns
         onColumnsChange?.(checkedList);
-        setVisible(false);
+        hidePopover();
     };
-    //取消修改配置:还原至上一次的保存配置
+    //取消选中的选项:还原至上一次的保存配置
     const handleCancel = () => {
         setCheckedList(savedCheckedList.current);
-        setVisible(false);
+        hidePopover();
     };
 
+    //自定义列的弹层内容
     const simulatedSelect = useMemo(() => {
         return (
             <>
@@ -53,26 +56,62 @@ const Operation = forwardRef(({ columns, onColumnsChange }, ref) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [columns, checkedList]);
 
-    useImperativeHandle(ref, () => ({
-        show: () => {
-            // doSomething
-        }
-    }), []);
-
     return (
         <>
-            <Popover
-                content={simulatedSelect}
-                trigger="click"
-                arrowPointAtCenter
-                placement="bottom"
-                visible={visible}
-            >
-                <Button onClick={() => setVisible(true)}>自定义列</Button>
-            </Popover>
+            {
+                extraNode ? extraNode : null
+            }
+            {
+                isEditColumns &&
+                <Popover
+                    content={simulatedSelect}
+                    trigger="click"
+                    arrowPointAtCenter
+                    placement="bottom"
+                    visible={visible}
+                >
+                    <Button onClick={() => setVisible(true)}>自定义列</Button>
+                </Popover>
+            }
+
         </>
     );
 
-});
+};
 
 export default Operation;
+
+Operation.propTypes = {
+
+    /** 表列的配置 */
+    columns: PropTypes.arrayOf(PropTypes.shape({
+
+        //字段名称
+        dataIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
+
+        //表头名称
+        title: PropTypes.string.isRequired,
+
+        //是否默认展示该字段
+        show: PropTypes.bool,
+
+        //是否超出悬浮显示...
+        overview: PropTypes.bool,
+
+        //自渲染，(text,record,index) => {return reactNode}
+        render: PropTypes.func,
+
+    })).isRequired,
+
+
+    /** 是否展示自定义列 */
+    isEditColumns: PropTypes.bool,
+
+    //修改自定义列后的回调,入参是选中的选项
+    onColumnsChange: PropTypes.func,
+
+};
+
+Operation.defaultProps = {
+    isEditColumns: true
+};
