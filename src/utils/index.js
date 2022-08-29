@@ -5,7 +5,7 @@ export const debounced = _.debounce((func, params) => {
     if (_.isFunction(func)) {
         func(params);
     }
-}, 300);
+}, 260);
 
 /**
  * @variablea [any] 需要校验的变量

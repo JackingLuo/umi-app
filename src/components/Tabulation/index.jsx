@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import { Table, Form, Pagination, ConfigProvider } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 import Filter from './components/Filters';
+import Operation from './components/Operations';
 import http from '@/api/http.js';
+import './index.less';
 
 const Tabulation = forwardRef(({
     form,
@@ -25,6 +27,7 @@ const Tabulation = forwardRef(({
 
     const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
     const [dataList, setDataList] = useState(dataSource || []);
+    const [realColumns, setRealColumns] = useState(columns.filter(item => item.show));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const realForm = useMemo(() => (form || filterForm), [form]);
@@ -58,11 +61,6 @@ const Tabulation = forwardRef(({
         getTableData({ current, pageSize });
     };
 
-    //增强columns
-    const enhanceColumns = useMemo(() => {
-        return columns;
-    }, [columns]);
-
     //增强列表分页器
     const enhancePagination = useMemo(() => {
         return {
@@ -73,9 +71,20 @@ const Tabulation = forwardRef(({
         };
     }, [paginationConfig, pagination]);
 
+    //修改columns自定义列
+    const handleColumnsChange = (showList) => {
+        const newColumns = columns.filter(item => showList.includes(item.dataIndex));
+        setRealColumns(newColumns);
+    };
+
+    //增强columns
+    const enhanceColumns = useMemo(() => {
+        return realColumns;
+    }, [realColumns]);
+
     /** 列表选择项 */
     const rowSelection = useMemo(() => ({
-        selectedRowKeys, //初始化之后不再受控,方便onSelected来处理逻辑
+        selectedRowKeys,
         onChange: (...arg) => onSelected?.(...arg)
     }), [onSelected, selectedRowKeys]);
 
@@ -86,6 +95,7 @@ const Tabulation = forwardRef(({
     return (
         <ConfigProvider locale={zhCN}>
             <Filter form={realForm} filterConfig={filterConfig} onFilter={onFilter} />
+            <Operation columns={columns} onColumnsChange={handleColumnsChange} />
             <Table
                 pagination={false}
                 rowKey={rowKey}

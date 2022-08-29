@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'antd';
 import imga from '../assets/111.jpeg';
 import imgb from '../assets/222.jpeg';
+import './login.scss';
 
 const Test = ({
 

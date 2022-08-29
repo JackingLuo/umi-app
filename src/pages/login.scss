@@ -1,12 +1,13 @@
-// 全局样式
-.img-box{
+.img-box {
     width: 450px;
     height: 300px;
     position: relative;
-    img{
+
+    img {
         width: 100%;
     }
-    .img-next{
+
+    .img-next {
         position: absolute;
         top: 0;
         left: 0;
@@ -18,7 +19,7 @@
 @keyframes maskRotate {
     @for $i from 0 through 100 {
         #{$i}% {
-            mask: linear-gradient(45deg,#000 #{$i + '%'}, transparent #{$i + 5 + '%'});
+            mask: linear-gradient(45deg, #000 #{$i + '%'}, transparent #{$i + 5 + '%'});
             // mask: radial-gradient(#000 #{$i + '%'}, transparent #{$i + 5 + '%'});
             // mask: conic-gradient(#000 #{$i + '%'}, transparent #{$i + '%'},transparent 1%);
         }

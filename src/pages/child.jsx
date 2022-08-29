@@ -4,6 +4,7 @@ import { Tabulation } from '@/components';
 import { Select } from 'antd';
 
 const Child = () => {
+
     const [selectedRowKeys, setSelectedRowKeys] = useState([1, 3, 5]);
 
     const filterConfig = [{
@@ -23,11 +24,13 @@ const Child = () => {
         title: '名字',
         dataIndex: 'name',
         key: 'name',
+        show: true,
     },
     {
         title: '年龄',
         dataIndex: 'age',
         key: 'age',
+        show: false
     }];
 
     return (
