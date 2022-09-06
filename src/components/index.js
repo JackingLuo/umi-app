@@ -6,3 +6,4 @@ export { default as DynamicTable } from './DynamicTable';
 export { default as Tabulation } from './Tabulation';
 export { default as SearchCheckbox } from './SearchCheckbox';
 export { default as CustomSelect } from './CustomSelect';
+export { default as FuzzySelect } from './FuzzySelect';

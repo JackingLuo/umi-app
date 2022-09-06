@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
-import { CustomSelect } from '@/components';
+import { FuzzySelect, CustomSelect } from '@/components';
 import { usePageForm } from '@/context/form';
 import Child from './child';
 // import _ from 'lodash';
@@ -18,6 +18,7 @@ const Docs = () => {
     return (
         <>
             <Form.Item name="testSelect">
+                {/* <FuzzySelcect url="/api/get/options" urlParams={{ abc: [] }} isMemo={false} /> */}
                 <CustomSelect url="/api/get/options" urlParams={{ abc: [] }} />
             </Form.Item>
             <Button onClick={() => {
