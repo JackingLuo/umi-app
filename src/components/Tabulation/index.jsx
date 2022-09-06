@@ -13,6 +13,7 @@ const Tabulation = forwardRef(({
     rowKey,
     url,
     filterConfig,
+    customFilter,
     columns,
     dataSource,
     onSelected,
@@ -20,6 +21,7 @@ const Tabulation = forwardRef(({
     selectedRowKeys,
     isShowPagination,
     paginationConfig,
+    customOperation,
     ...rest
 }, ref) => {
 
@@ -94,8 +96,8 @@ const Tabulation = forwardRef(({
 
     return (
         <ConfigProvider locale={zhCN}>
-            <Filter form={realForm} filterConfig={filterConfig} onFilter={onFilter} />
-            <Operation columns={columns} onColumnsChange={handleColumnsChange} />
+            <Filter form={realForm} customFilter={customFilter} filterConfig={filterConfig} onFilter={onFilter} />
+            <Operation columns={columns} extraNode={customOperation} onColumnsChange={handleColumnsChange} />
             <Table
                 pagination={false}
                 rowKey={rowKey}
@@ -123,6 +125,13 @@ Tabulation.propTypes = {
 
     /** filter配置项 */
     filterConfig: PropTypes.array,
+
+    /**
+     * 自定义filter配置,优先级高于filterConfig
+     * 如果filter有复杂的联动逻辑,可以使用
+     * 注意:这是一个function
+     */
+    customFilter: PropTypes.func,
 
     /** 渲染表行(dataSource)所需的key,默认id,需要后端配合 */
     rowKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
@@ -166,7 +175,10 @@ Tabulation.propTypes = {
     onSelected: PropTypes.func,
 
     /** 默认选中项的rowKey集合,需要配合onSelected使用 */
-    selectedRowKeys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+    selectedRowKeys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+
+    /** 自定义的Operation选项 */
+    customOperation: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
 
 };
 

@@ -5,12 +5,15 @@ import { SearchCheckbox } from '@/components';
 
 const Operation = ({ columns, onColumnsChange, isEditColumns, extraNode }) => {
 
+    const deafaultChecked = columns.filter(item => item.show).map(i => i.dataIndex);//默认选中项
+
     const [visible, setVisible] = useState(false);
-    const [checkedList, setCheckedList] = useState(columns.filter(item => item.show).map(i => i.dataIndex));//选中的选项(未保存)
-    const savedCheckedList = useRef(columns.filter(item => item.show).map(i => i.dataIndex)); //已保存的选项
+    const [checkedList, setCheckedList] = useState(deafaultChecked);//选中的选项(未保存)
+    const savedCheckedList = useRef(deafaultChecked); //已保存的选项
 
     //隐藏卡片
     const hidePopover = () => setVisible(false);
+    const handleVisibleChange = (newVisible) => setVisible(newVisible);
 
     //多选框修改回调
     const handleChange = (values) => {
@@ -18,7 +21,6 @@ const Operation = ({ columns, onColumnsChange, isEditColumns, extraNode }) => {
     };
     //还原values的默认配置
     const handleReduction = () => {
-        const deafaultChecked = columns.filter(item => item.show).map(i => i.dataIndex);
         savedCheckedList.current = deafaultChecked;
         setCheckedList(deafaultChecked);
         onColumnsChange?.(deafaultChecked);
@@ -69,6 +71,7 @@ const Operation = ({ columns, onColumnsChange, isEditColumns, extraNode }) => {
                     arrowPointAtCenter
                     placement="bottom"
                     visible={visible}
+                    onVisibleChange={handleVisibleChange}
                 >
                     <Button onClick={() => setVisible(true)}>自定义列</Button>
                 </Popover>

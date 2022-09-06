@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Input } from 'antd';
+import { Form, Input, Button } from 'antd';
+import { CustomSelect } from '@/components';
 import { usePageForm } from '@/context/form';
 import Child from './child';
 // import _ from 'lodash';
@@ -16,6 +17,20 @@ const Docs = () => {
 
     return (
         <>
+            <Form.Item name="testSelect">
+                <CustomSelect url="/api/get/options" urlParams={{ abc: [] }} />
+            </Form.Item>
+            <Button onClick={() => {
+                form.setFields([{
+                    name: 'testSelect',
+                    value: {
+                        label: 'DDDD',
+                        value: 909
+                    }
+                }]);
+            }}>
+                修改select
+            </Button>
             <Form.Item name="testInput">
                 <Input />
             </Form.Item>

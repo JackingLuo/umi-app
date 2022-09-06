@@ -55,3 +55,6 @@
 
 ##### 3. 值的获取和设置
     动态列表其实也属于表单,所以我们获取值和设置值都还是使用form来控制,如form.getFieldsValue()或者form.setFields([{ name:'dynamic-table', value:value }]);
+
+#### 4.antd版本
+    "antd": "^4.22.3"

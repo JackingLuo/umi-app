@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { getVariableaType } from '@/utils';
 
 /** table的Filter组件 */
-const Filter = ({ form, filterConfig, searchText, onFilter }) => {
+const Filter = ({ form, filterConfig, customFilter, searchText, onFilter }) => {
 
     /** 格式化渲染 filterConfig*/
     const renderFilter = useMemo(() => {
@@ -25,7 +25,7 @@ const Filter = ({ form, filterConfig, searchText, onFilter }) => {
                 // throw new Error(`filterConfig配置项中的render必须是一个function,请检查filterConfig配置中name为 ${item.name}`);
             } else {
                 //默认是Input
-                node = <Input />;
+                node = <Input placeholder={`请输入${itemConfig.label}`} />;
             }
             return (
                 <Form.Item key={itemConfig.name} id={`table-filter-${itemConfig.name}`} {...itemConfig}>
@@ -43,7 +43,7 @@ const Filter = ({ form, filterConfig, searchText, onFilter }) => {
     return !_.isEmpty(filterConfig) ?
         (
             <Form form={form} onFinish={(...arg) => onFilter?.(...arg)}>
-                {renderFilter}
+                {customFilter ? customFilter(form) : renderFilter}
                 <Button type="primary" onClick={() => form?.submit?.()}>{searchText}</Button>
                 <Button onClick={onReset}>重置</Button>
             </Form>
@@ -55,6 +55,13 @@ export default Filter;
 Filter.propTypes = {
     // form 实例
     form: PropTypes.object.isRequired,
+
+    /**
+     * 自定义filter配置,优先级高于filterConfig
+     * 如果filter有复杂的联动逻辑,可以使用
+     * 注意:这是一个function
+     */
+    customFilter: PropTypes.func,
 
     // filter配置项
     filterConfig: PropTypes.arrayOf(PropTypes.shape({
